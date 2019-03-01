@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "AutoCompleteDemo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+}
+<h2>AutoCompleteDemo</h2>
+
+<div class="col-lg-12">
+    <div class="col-lg-6">
+        <input type="text" id="txtFirstName" placeholder="First Name" />
+        <input type="hidden" id="txtFirstNameID" />
+    </div>
+    <div class="col-lg-6">
+        <input type="text" id="txtLastName" placeholder="Last Name" />
+        <input type="hidden" id="txtLastNameID" />
+    </div>
+</div>
+@section scripts{
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $("#txtFirstName").bind('focus', function () { $(this).autocomplete("search"); });
+        $("#txtLastName").bind('focus', function () { $(this).autocomplete("search"); });
+
+        $(function () {
+            $("#txtFirstName").autocomplete({
+                source: function (request, response) {
+                    var data = { firstname: $("#txtFirstName").val(), lastname: $("#txtLastName").val() };
+                    // delegate back to autocomplete, but extract the last term
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("getSource","Demo")",
+                        data: data,
+                        success: function (data) {
+                            response(data.u1);
+                            $("#txtLastName").autocomplete({
+                                source: data.u2
+                            });
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    $("#txtFirstName").val(ui.item.value); // display the selected text
+                    $("#txtFirstNameID").val(ui.item.key); // save selected id to hidden input
+                }
+            });
+
+            $("#txtLastName").autocomplete({
+                source: function (request, response) {
+                    var data = { firstname: $("#txtFirstName").val(), lastname: $("#txtLastName").val() };
+                    // delegate back to autocomplete, but extract the last term
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("getSource","Demo")",
+                        data: data,
+                        success: function (data) {
+                            response(data.u2);
+                            $("#txtFirstName").autocomplete({
+                                source: data.u1
+                            });
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    $("#txtLastName").val(ui.item.value); // display the selected text
+                    $("#txtLastNameID").val(ui.item.key); // save selected id to hidden input
+                }
+            });
+        });
+    </script>
+}

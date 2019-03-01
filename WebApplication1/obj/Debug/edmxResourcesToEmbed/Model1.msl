@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebApplication1ModelStoreContainer" CdmEntityContainer="WebApplication1Entities">
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="WebApplication1Model.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="jobtitle" ColumnName="jobtitle" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mobiles">
+      <EntityTypeMapping TypeName="WebApplication1Model.Mobile">
+        <MappingFragment StoreEntitySet="Mobiles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_GeneralData">
+      <EntityTypeMapping TypeName="WebApplication1Model.Tbl_GeneralData">
+        <MappingFragment StoreEntitySet="Tbl_GeneralData">
+          <ScalarProperty Name="Appointment_ID" ColumnName="Appointment_ID" />
+          <ScalarProperty Name="KeyValue" ColumnName="KeyValue" />
+          <ScalarProperty Name="KeyTitle" ColumnName="KeyTitle" />
+          <ScalarProperty Name="KeyID" ColumnName="KeyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Configuration">
+      <EntityTypeMapping TypeName="WebApplication1Model.Tbl_Configuration">
+        <MappingFragment StoreEntitySet="Tbl_Configuration">
+          <ScalarProperty Name="Option_Value" ColumnName="Option_Value" />
+          <ScalarProperty Name="Option_Title" ColumnName="Option_Title" />
+          <ScalarProperty Name="ConfigureID" ColumnName="ConfigureID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

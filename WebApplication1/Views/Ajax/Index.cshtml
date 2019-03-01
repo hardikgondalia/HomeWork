@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<button id="BtnSend">Button</button>
+
+<div id="id"></div>
+<div id="firstName"></div>
+<div id="lastName"></div>
+<p id="getEmployee">Get Employee</p>
+
+@section scripts{
+    <script>
+        $('p#getEmployee').click(function () {
+            GetEmployeeUsingAjax();
+        });
+
+        function GetEmployeeUsingAjax() {
+            var EmpId = 2;
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetAllUser","Ajax")',
+                data: { "EmpId": EmpId },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (emp) {
+                    console.log("Error");
+                    console.log(emp);
+                }
+            });
+        }
+
+        $("#BtnSend").click(function () {
+            var departmentBO = {
+                "dept_id": "",
+                "dept_name": "",
+                "msg": "",
+                "isException": ""
+            };
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                async: false,
+                data: JSON.stringify(departmentBO),
+                url: 'UpdateDepartmentNameJSON',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert('Department Name Updated');
+                },
+                error: function (xhr, err) {
+                    alert(xhr.responsetext);
+                }
+            });
+        });
+    </script>
+}

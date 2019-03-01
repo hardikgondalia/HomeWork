@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebApplication1.Models.Employee>
+@using (Html.BeginForm("Employees"))
+{
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Number
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.jobtitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.address)
+                </td>
+                <td>
+                    <input type="submit" formaction="/CompanyEmployee/Edit/@emp.id" value="Edit" />
+                    <input type="submit" formaction="/CompanyEmployee/Delete/@emp.id" value="Remove" />
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DemoDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Class_Mast">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="int" Nullable="false" />
+          <Property Name="Class_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Student_Mast">
+          <Key>
+            <PropertyRef Name="StudID" />
+          </Key>
+          <Property Name="StudID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Last Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Roll No" Type="int" />
+          <Property Name="FK_ClassID" Type="int" />
+        </EntityType>
+        <Function Name="GetStudentByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Student_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Insert_Student" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="First_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Last_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Roll_No" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DemoDatabaseModelStoreContainer">
+          <EntitySet Name="Class_Mast" EntityType="Self.Class_Mast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Mast" EntityType="Self.Student_Mast" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Class_Mast">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="Int32" Nullable="false" />
+          <Property Name="Class_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="DemoDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Class_Mast" EntityType="Self.Class_Mast" />
+          <FunctionImport Name="GetStudentByID" ReturnType="Collection(DemoDatabaseModel.GetStudentByID_Result)">
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Student_Mast" EntityType="DemoDatabaseModel.Student_Mast" />
+        </EntityContainer>
+        <ComplexType Name="GetStudentByID_Result">
+          <Property Type="Int32" Name="StudID" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Roll_No" Nullable="true" />
+          <Property Type="Int32" Name="FK_ClassID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Student_Mast">
+          <Key>
+            <PropertyRef Name="StudID" />
+          </Key>
+          <Property Name="StudID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Roll_No" Type="Int32" />
+          <Property Name="FK_ClassID" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoDatabaseModelStoreContainer" CdmEntityContainer="DemoDatabaseEntities">
+          <EntitySetMapping Name="Class_Mast">
+            <EntityTypeMapping TypeName="DemoDatabaseModel.Class_Mast">
+              <MappingFragment StoreEntitySet="Class_Mast">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentByID" FunctionName="DemoDatabaseModel.Store.GetStudentByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDatabaseModel.GetStudentByID_Result">
+                <ScalarProperty Name="StudID" ColumnName="StudID" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Roll_No" ColumnName="Roll No" />
+                <ScalarProperty Name="FK_ClassID" ColumnName="FK_ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Student_Mast">
+            <EntityTypeMapping TypeName="DemoDatabaseModel.Student_Mast">
+              <MappingFragment StoreEntitySet="Student_Mast">
+                <ScalarProperty Name="FK_ClassID" ColumnName="FK_ClassID" />
+                <ScalarProperty Name="Roll_No" ColumnName="Roll No" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="StudID" ColumnName="StudID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

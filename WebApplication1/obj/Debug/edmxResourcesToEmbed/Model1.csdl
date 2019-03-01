@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebApplication1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="jobtitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="WebApplication1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="employees" EntityType="Self.employee" />
+    <EntitySet Name="Mobiles" EntityType="WebApplication1Model.Mobile" />
+    <EntitySet Name="Tbl_GeneralData" EntityType="WebApplication1Model.Tbl_GeneralData" />
+    <EntitySet Name="Tbl_Configuration" EntityType="WebApplication1Model.Tbl_Configuration" />
+  </EntityContainer>
+  <EntityType Name="Mobile">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Model" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="id" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_GeneralData">
+    <Key>
+      <PropertyRef Name="KeyID" />
+    </Key>
+    <Property Name="KeyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KeyTitle" Type="Int32" />
+    <Property Name="KeyValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Appointment_ID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Configuration">
+    <Key>
+      <PropertyRef Name="ConfigureID" />
+    </Key>
+    <Property Name="ConfigureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Option_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

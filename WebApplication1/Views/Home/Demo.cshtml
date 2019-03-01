@@ -1,0 +1,16 @@
+﻿@model WebApplication1.Models.HomeModel
+@{
+    ViewBag.Title = "Demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Demo</h2>
+@using (Html.BeginForm("Demo", "Home", FormMethod.Post, new { }))
+{
+    @Html.TextBoxFor(i => i.id)
+    @Html.ValidationMessageFor(i => i.id)
+    @Html.TextBoxFor(i => i.Name)
+    @Html.ValidationMessageFor(i => i.Name)
+    <button type="submit">Submit</button>
+}
+

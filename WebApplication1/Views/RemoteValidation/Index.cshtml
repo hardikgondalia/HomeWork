@@ -1,0 +1,14 @@
+﻿@model WebApplication1.Models.RemoteValidationModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("", ""))
+{
+    @Html.TextBoxFor(i => i.UserName)
+    @Html.ValidationMessageFor(i => i.UserName)
+    
+    <input type="submit" value="Submit" />
+}
+

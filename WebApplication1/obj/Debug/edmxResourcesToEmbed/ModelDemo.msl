@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DemoDatabaseModelStoreContainer" CdmEntityContainer="DemoDatabaseEntities">
+    <EntitySetMapping Name="Class_Mast">
+      <EntityTypeMapping TypeName="DemoDatabaseModel.Class_Mast">
+        <MappingFragment StoreEntitySet="Class_Mast">
+          <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+          <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetStudentByID" FunctionName="DemoDatabaseModel.Store.GetStudentByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDatabaseModel.GetStudentByID_Result">
+          <ScalarProperty Name="StudID" ColumnName="StudID" />
+          <ScalarProperty Name="First_Name" ColumnName="First Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+          <ScalarProperty Name="Roll_No" ColumnName="Roll No" />
+          <ScalarProperty Name="FK_ClassID" ColumnName="FK_ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Student_Mast">
+      <EntityTypeMapping TypeName="DemoDatabaseModel.Student_Mast">
+        <MappingFragment StoreEntitySet="Student_Mast">
+          <ScalarProperty Name="FK_ClassID" ColumnName="FK_ClassID" />
+          <ScalarProperty Name="Roll_No" ColumnName="Roll No" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+          <ScalarProperty Name="First_Name" ColumnName="First Name" />
+          <ScalarProperty Name="StudID" ColumnName="StudID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

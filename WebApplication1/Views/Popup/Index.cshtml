@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button type="button" class="btn btn-primary" onclick="OpenHTML('1')">
+    Open HTML
+</button>
+
+@section scripts{
+    <script>
+        function OpenHTML(mappingID) {
+            var w = window.open();
+            var html = $.get("/Popup/OpenHTMLnew?appID=" + mappingID, function (data) {
+                $(w.document.body).html(data);
+            });
+
+            console.log(html);
+        }
+    </script>
+}
+

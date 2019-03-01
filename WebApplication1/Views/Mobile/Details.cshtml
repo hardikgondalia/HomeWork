@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebApplication1.Mobile>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<ul>
+    @foreach (Mobile obj in Model)
+    {
+        <li>
+            @obj.Model
+        </li>
+        <li>
+            @obj.Type
+        </li>
+        <li>
+            @obj.Cost
+        </li>
+    }
+</ul>

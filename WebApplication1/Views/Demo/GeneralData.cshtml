@@ -1,0 +1,47 @@
+﻿@model WebApplication1.Models.GeneralData
+@{
+    ViewBag.Title = "GeneralData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SaveData", "Demo", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    Html.EnableClientValidation();
+    <div id="DataList">
+        <div id="editorRowsData">
+            @{
+    foreach (var data in Model.DataList)
+    {
+        Html.RenderPartial("_GeneralDataPartial", data);
+    }
+            }
+        </div>
+        @Html.ActionLink("Add", "DataManager", null, new { id = "addData", @class = "button" })
+        <button type="submit" value="Submit">Submit</button>
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#addData').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("DataManager")',
+                    cache: false,
+                    success: function (html) {
+                        console.log(html);
+                        $("#editorRowsData").append(html);
+                        $('form').data('validator', null);
+                        $.validator.unobtrusive.parse($('form'));
+                    }
+                });
+                return false;
+            });
+            $('#editorRowsData').on('click', '.deleteRow', function () {
+                $(this).closest('.editorRow').remove();
+            });
+        });
+    </script>
+}
+
+

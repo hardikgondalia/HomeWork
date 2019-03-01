@@ -1,0 +1,485 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head runat="server">
+    <title>Telerik ASP.NET Example</title>
+    <link href="styles.css" rel="stylesheet" />
+    <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+        <script type="text/javascript">
+            var radWindow1 = null;
+            var radGrid1 = null;
+            var panelStep1 = null;
+            var panelStep2 = null;
+
+            function pageLoad() {
+                radGrid1 = $find("<%= RadGrid1.ClientID %>");
+                radWindow1 = $find("<%= RadWindow1.ClientID %>");
+                panelStep1 = $get("<%= FirstStepPanel.ClientID %>");
+                panelStep2 = $get("<%= SecondStepPanel.ClientID %>");
+            }
+        </script>
+    </telerik:RadCodeBlock>
+    <script type="text/javascript" src="scripts.js"></script>
+    <style type="text/css">
+        .RadGrid a.bookNowLink:visited,
+        .RadGrid a.bookNowLink:link,
+        .RadGrid a.bookNowLink:hover,
+        .RadGrid a.bookNowLink:active {
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        div.qsf-right-content .qsf-col-wrap {
+            padding-right: 0;
+        }
+
+        div.carTitle {
+            font-size: 15pt;
+            padding: 30px 0 5px 0;
+        }
+
+        .carBackground {
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            height: 263px;
+            border-top: 1px solid #dae2e8;
+            border-bottom: 1px solid #dae2e8;
+            padding: 20px 20px 10px 30px;
+        }
+
+        .carInfo {
+            line-height: 24px;
+        }
+
+        hr.lineSeparator {
+            color: #a9b5be;
+            background-color: #a9b5be;
+            height: 1px;
+            border: none;
+        }
+
+        .bookNowTitle {
+            font-size: 20px;
+        }
+
+        .bookNowFrame {
+            padding: 20px 0 20px 20px;
+        }
+
+        .RadWindow .rwCorner .rwTopLeft,
+        .RadWindow .rwTitlebar,
+        .RadWindow .rwCorner .rwTopRight,
+        .RadWindow .rwIcon,
+        .RadWindow table .rwTopLeft,
+        .RadWindow table .rwTopRight,
+        .RadWindow table .rwFooterLeft,
+        .RadWindow table .rwFooterRight,
+        .RadWindow table .rwFooterCenter,
+        .RadWindow table .rwBodyLeft,
+        .RadWindow table .rwBodyRight,
+        .RadWindow table .rwTitlebar,
+        .RadWindow table .rwTopResize,
+        .RadWindow table .rwStatusbar {
+            display: none;
+        }
+
+        div.RadGrid_WebBlue .rgFilterRow td {
+            padding-bottom: 4px;
+            padding-top: 8px;
+        }
+
+        .rbDecorated {
+            padding-right: 10px !important;
+        }
+
+        span.RadButton {
+            vertical-align: top;
+        }
+
+        /*Page Layout*/
+        .gridHeader {
+            position: relative;
+            background-image: url(Images/btns.png);
+            background-repeat: no-repeat;
+            background-position: 100% -80px;
+            padding-right: 161px;
+        }
+
+            .gridHeader > div {
+                background: #9ad0da url("Images/header.png") no-repeat;
+                height: 80px;
+                margin: 0;
+            }
+
+            .gridHeader button.saveButton,
+            .gridHeader button.loadButton {
+                height: 80px;
+                width: 80px;
+                padding: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                background: url(Images/btns.png) no-repeat 0 0;
+                overflow: hidden;
+                border: 0 none;
+                border-radius: 0;
+            }
+
+            .gridHeader .saveButton span,
+            .gridHeader .loadButton span {
+                text-indent: -9999px;
+                display: block;
+            }
+
+            .gridHeader button.saveButton {
+                right: 81px;
+                background-position: -80px 0;
+            }
+
+        * + html .demo-container {
+            max-width: 1040px;
+        }
+
+        div.demo-container {
+            border: 0 none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <telerik:RadScriptManager runat="server" ID="RadScriptManager1" />
+        <telerik:RadSkinManager ID="RadSkinManager1" runat="server" ShowChooser="true" />
+        <div class="demo-container" id="demo-container">
+            <div class="gridPositioning">
+                <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+                    <ajaxsettings>
+                        <telerik:ajaxsetting ajaxcontrolid="BookNowCloseButton">
+                            <updatedcontrols>
+                                <telerik:ajaxupdatedcontrol controlid="RadGrid1" />
+                            </updatedcontrols>
+                        </telerik:ajaxsetting>
+                        <telerik:ajaxsetting ajaxcontrolid="SaveSettingsButton">
+                            <updatedcontrols>
+                                <telerik:ajaxupdatedcontrol controlid="RadGrid1" />
+                            </updatedcontrols>
+                        </telerik:ajaxsetting>
+                        <telerik:ajaxsetting ajaxcontrolid="RadGrid1">
+                            <updatedcontrols>
+                                <telerik:ajaxupdatedcontrol controlid="RadGrid1" />
+                            </updatedcontrols>
+                        </telerik:ajaxsetting>
+                    </ajaxsettings>
+                </telerik:RadAjaxManager>
+                <telerik:RadPersistenceManager ID="RadPersistenceManager1" runat="server" StorageProviderKey="OverviewDemoStorage">
+                    <persistencesettings>
+                        <telerik:persistencesetting controlid="RadGrid1" />
+                    </persistencesettings>
+                </telerik:RadPersistenceManager>
+                <div class="gridHeader">
+                    <div></div>
+                    <telerik:RadButton RenderMode="Lightweight" ID="SaveSettingsButton" runat="server" Skin="" Text="Save"
+                                       CssClass="saveButton" OnClick="SaveSettingsButton_Click" />
+                    <telerik:RadButton RenderMode="Lightweight" ID="LoadSettingsButton" runat="server" Skin="" Text="Load"
+                                       CssClass="loadButton" OnClick="LoadSettingsButton_Click" />
+                </div>
+                <div>
+                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" AllowSorting="True"
+                                     OnNeedDataSource="RadGrid1_NeedDataSource" AllowFilteringByColumn="True"
+                                     OnItemCommand="RadGrid1_ItemCommand" CellSpacing="0" GridLines="None">
+                        <groupingsettings casesensitive="false" />
+                        <mastertableview autogeneratecolumns="false" tablelayout="Fixed">
+                            <columngroups>
+                                <telerik:gridcolumngroup name="GeneralInformation" headertext="General Information"
+                                                         headerstyle-horizontalalign="Center" />
+                                <telerik:gridcolumngroup name="SpecificInformation" headertext="Specific Information"
+                                                         headerstyle-horizontalalign="Center" />
+                                <telerik:gridcolumngroup name="BookingInformation" headertext="Booking Information"
+                                                         headerstyle-horizontalalign="Center" />
+                            </columngroups>
+                            <headerstyle width="102px" />
+                            <columns>
+                                <telerik:gridboundcolumn datafield="BrandName" headertext="Brand Name" uniquename="BrandName"
+                                                         columngroupname="GeneralInformation">
+                                    <headerstyle width="170px" />
+                                    <filtertemplate>
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="BrandNameCombo" DataSourceID="EntityDataSource1" DataTextField="BrandName"
+                                                             OnDataBound="BrandNameCombo_DataBound" DataValueField="BrandName"
+                                                             Height="200px" AppendDataBoundItems="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("BrandName").CurrentFilterValue %>'
+                                                             runat="server" OnClientSelectedIndexChanged="BrandNameComboIndexChanged">
+                                            <items>
+                                                <telerik:radcomboboxitem text="Select a Brand" />
+                                            </items>
+                                        </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+                                            <script type="text/javascript">
+                                                function BrandNameComboIndexChanged(sender, args) {
+                                                    var tableView = $find("<%# ((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    tableView.filter("BrandName", args.get_item().get_value(), "EqualTo");
+                                                }
+                                            </script>
+                                        </telerik:RadScriptBlock>
+                                    </filtertemplate>
+                                </telerik:gridboundcolumn>
+                                <telerik:gridboundcolumn datafield="Model" headertext="Model" uniquename="Model"
+                                                         columngroupname="GeneralInformation" filtercontrolwidth="60px">
+                                    <headerstyle width="115px" />
+                                </telerik:gridboundcolumn>
+                                <telerik:gridboundcolumn datafield="Classification" headertext="Classification" uniquename="Classification"
+                                                         columngroupname="GeneralInformation">
+                                    <filtertemplate>
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="ClassificationCombo" Width="90px" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Classification").CurrentFilterValue %>'
+                                                             runat="server" OnClientSelectedIndexChanged="ClassificationComboIndexChanged">
+                                            <items>
+                                                <telerik:radcomboboxitem text="All" value="" />
+                                                <telerik:radcomboboxitem text="Hatchback" value="Hatchback" />
+                                                <telerik:radcomboboxitem text="Sedan" value="Sedan" />
+                                                <telerik:radcomboboxitem text="SUV" value="SUV" />
+                                                <telerik:radcomboboxitem text="MPV" value="MPV" />
+                                            </items>
+                                        </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+                                            <script type="text/javascript">
+                                                function ClassificationComboIndexChanged(sender, args) {
+                                                    var tableView = $find("<%# ((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    tableView.filter("Classification", args.get_item().get_value(), "EqualTo");
+                                                }
+                                            </script>
+                                        </telerik:RadScriptBlock>
+                                    </filtertemplate>
+                                </telerik:gridboundcolumn>
+                                <telerik:gridboundcolumn datafield="Transmission" headertext="Transmission" uniquename="Transmission"
+                                                         columngroupname="GeneralInformation">
+                                    <filtertemplate>
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="TransmissionCombo" Width="90px" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Transmission").CurrentFilterValue %>'
+                                                             runat="server" OnClientSelectedIndexChanged="TransmissionComboIndexChanged">
+                                            <items>
+                                                <telerik:radcomboboxitem text="All" value="" />
+                                                <telerik:radcomboboxitem text="Manual" value="Manual" />
+                                                <telerik:radcomboboxitem text="Automatic" value="Automatic" />
+                                            </items>
+                                        </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock3" runat="server">
+                                            <script type="text/javascript">
+                                                function TransmissionComboIndexChanged(sender, args) {
+                                                    var tableView = $find("<%# ((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    tableView.filter("Transmission", args.get_item().get_value(), "EqualTo");
+                                                }
+                                            </script>
+                                        </telerik:RadScriptBlock>
+                                    </filtertemplate>
+                                </telerik:gridboundcolumn>
+                                <telerik:gridboundcolumn datafield="Year" headertext="Year" uniquename="Year" columngroupname="SpecificInformation" filtercontrolwidth="55px">
+                                    <headerstyle width="110px" />
+                                </telerik:gridboundcolumn>
+                                <telerik:gridboundcolumn datafield="Fuel" headertext="Fuel" uniquename="Fuel" columngroupname="SpecificInformation">
+                                    <filtertemplate>
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="FuelCombo" Width="90px" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Fuel").CurrentFilterValue %>'
+                                                             runat="server" OnClientSelectedIndexChanged="FuelComboIndexChanged">
+                                            <items>
+                                                <telerik:radcomboboxitem text="All" value="" />
+                                                <telerik:radcomboboxitem text="Diesel" value="Diesel" />
+                                                <telerik:radcomboboxitem text="Gasoline" value="Gasoline" />
+                                                <telerik:radcomboboxitem text="Hybrid" value="Hybrid" />
+                                            </items>
+                                        </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock4" runat="server">
+                                            <script type="text/javascript">
+                                                function FuelComboIndexChanged(sender, args) {
+                                                    var tableView = $find("<%# ((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    tableView.filter("Fuel", args.get_item().get_value(), "EqualTo");
+                                                }
+                                            </script>
+                                        </telerik:RadScriptBlock>
+                                    </filtertemplate>
+                                </telerik:gridboundcolumn>
+                                <telerik:gridnumericcolumn datafield="Price" headertext="Price" uniquename="Price"
+                                                           columngroupname="BookingInformation" dataformatstring="<strong>&#8364; {0}</strong>"
+                                AllowFiltering="false" HeaderStyle-Width="80px" />
+                            <telerik:GridTemplateColumn HeaderText="Book" ColumnGroupName="BookingInformation"
+                                AllowFiltering="false">
+                                <HeaderStyle Width="102px" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="BookButton" runat="server" Text="Book Now" OnClientClick='' CssClass="bookNowLink" />
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            </columns>
+                            <nestedviewtemplate>
+                                <div class="carBackground" style='<%# NormalizeValue(String.Format("background-image: url(Images/LargeLogos/{0}.png);", Eval("BrandName"))) %>'>
+                                    <div style="float: left;">
+                                        <asp:Image ID="CarImage" runat="server" AlternateText="Car Image" ImageUrl='<%# GetCarImageUrl(Container)%>' />
+                                    </div>
+                                    <div style="float: right; width: 50%">
+                                        <div class="carTitle">
+                                            <%# Eval("BrandName") %>
+                                            <%# Eval("Model") %>
+                                            <span style="color: #555555; float: right; font-size: 14px; font-weight: normal;">
+                                                Rented
+                                                <%# Eval("RentedCount") %>
+                                                times
+                                            </span>
+                                        </div>
+                                        <hr class="lineSeparator" />
+                                        <table width="100%" class="carInfo">
+                                            <tr>
+                                                <td>
+                                                    <strong>Year:</strong>
+                                                    <%# Eval("Year") %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Classification:</strong>
+                                                    <%# Eval("Classification") %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Transmission:</strong>
+                                                    <%# Eval("Transmission") %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Fuel Type:</strong>
+                                                    <%# Eval("Fuel") %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Price:</strong> &#8364;<%# Eval("Price") %>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="clear: both">
+                                    </div>
+                                </div>
+                            </nestedviewtemplate>
+                            <pagerstyle pagesizes="5,10" pagertextformat="{4}<strong>{5}</strong> cars matching your search criteria"
+                            PageSizeLabelText="Cars per page:" />
+                        </mastertableview>
+                        <clientsettings enablerowhoverstyle="true" enablepostbackonrowclick="true">
+                            <selecting allowrowselect="true" enabledragtoselectrows="false" />
+                            <scrolling allowscroll="true" usestaticheaders="true" scrollheight="" />
+                        </clientsettings>
+                    </telerik:RadGrid>
+                </div>
+                <telerik:RadWindow RenderMode="Lightweight" ID="RadWindow1" runat="server" VisibleTitlebar="false" Modal="true" Width="550px" Height="380px"
+                                   Behaviors="None" VisibleStatusbar="false">
+                    <contenttemplate>
+                        <asp:Panel ID="FirstStepPanel" runat="server">
+                            <div class="bookNowFrame">
+                                <div class="bookNowTitle">
+                                    Fill in the form to make your reservation
+                                </div>
+                                <hr class="lineSeparator" style="margin: 12px 0 12px 0" />
+                                <table cellspacing="8">
+                                    <colgroup>
+                                        <col width="90px" />
+                                        <col width="150px" />
+                                        <col />
+                                        <col />
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            DATE OF RENT
+                                        </td>
+                                        <td>
+                                            <telerik:RadDatePicker RenderMode="Lightweight" ID="DateOfRentPicker" Width="130px" runat="server" />
+                                        </td>
+                                        <td>
+                                            RETURN DATE
+                                        </td>
+                                        <td>
+                                            <telerik:RadDatePicker RenderMode="Lightweight" ID="ReturnDatePicker" Width="130px" runat="server" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <hr class="lineSeparator" style="margin: 12px 0 12px 0" />
+                                <table cellspacing="8">
+                                    <colgroup>
+                                        <col width="90px" />
+                                        <col />
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            FIRST NAME
+                                        </td>
+                                        <td>
+                                            <telerik:RadTextBox RenderMode="Lightweight" ID="FirstNameTextBox" runat="server" Width="190px" /><br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            LAST NAME
+                                        </td>
+                                        <td>
+                                            <telerik:RadTextBox RenderMode="Lightweight" ID="LastNameTextBox" runat="server" Width="190px" /><br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            EMAIL
+                                        </td>
+                                        <td>
+                                            <telerik:RadTextBox RenderMode="Lightweight" ID="EmailTextBox" runat="server" Width="190px" /><br />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <hr class="lineSeparator" style="margin: 12px 0 15px 0" />
+                                <telerik:RadButton RenderMode="Lightweight" ID="BookNowButton" runat="server" Text="Book Now"
+                                                   Width="100px" OnClientClicking="bookNowClicking" UseSubmitBehavior="false" />
+                                <telerik:RadButton RenderMode="Lightweight" ID="CancelButton" runat="server" Text="Cancel"
+                                                   Width="100px" OnClientClicking="cancelClicking" UseSubmitBehavior="false" />
+                            </div>
+                        </asp:Panel>
+                        <asp:Panel ID="SecondStepPanel" runat="server" Style="display: none; padding: 120px 20px 0 30px; width: 480px;">
+                            <div style="float: left;">
+                                <img src="Images/Confirmation.png" alt="Confirmation sign" />
+                            </div>
+                            <div style="float: left; padding: 10px 0 0 20px;">
+                                <div class="bookNowComplete">
+                                    You have successfully made your reservation!
+                                </div>
+                                <hr class="lineSeparator" style="margin: 10px 10px 20px 0" />
+                                <telerik:RadButton RenderMode="Lightweight" ID="BookNowCloseButton" runat="server" Text="Close"
+                                                   Width="100px" OnClientClicking="bookNowCloseClicking" UseSubmitBehavior="false" />
+                            </div>
+                            <div style="clear: both">
+                            </div>
+                        </asp:Panel>
+                    </contenttemplate>
+                </telerik:RadWindow>
+            </div>
+        </div>
+        <asp:EntityDataSource runat="server" ID="EntityDataSource1" ConnectionString="name=TelerikReadWriteEntities" DefaultContainerName="TelerikReadWriteEntities" EnableFlattening="False" EntitySetName="Cars"
+                              GroupBy="it.BrandName" Select="it.BrandName">
+        </asp:EntityDataSource>
+    </form>
+    <script>
+        function openConfirmationWindow(carID) {
+            radWindow1.set_title(carID);
+            radWindow1.show();
+        }
+        function bookNowCloseClicking(sender, args) {
+            radWindow1.close();
+            togglePanels();
+            radGrid1.get_masterTableView().fireCommand("UpdateCount", radWindow1.get_title());
+            args.set_cancel(true);
+        }
+        function bookNowClicking(sender, args) {
+            togglePanels();
+            args.set_cancel(true);
+        }
+        function cancelClicking(sender, args) {
+            radWindow1.close();
+            args.set_cancel(true);
+        }
+        function togglePanels() {
+            var step1Visible = panelStep1.style.display != "none";
+            panelStep1.style.display = step1Visible ? "none" : "";
+            panelStep2.style.display = step1Visible ? "" : "none";
+        }
+    </script>
+</body>
+</html>

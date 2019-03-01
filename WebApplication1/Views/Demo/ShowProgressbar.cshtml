@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "ShowProgressbar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Progress.css" rel="stylesheet" />
+}
+
+<h2>ShowProgressbar</h2>
+<div id="wrapper">
+    <div id="content">
+        <h1>Display Progress Bar While Page Loads Using jQuery<p>TalkersCode.com</p></h1>
+        <video width="320" height="240" id="myVid" controls="controls" preload="auto">
+            <source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
+            <object data="" width="320" height="240"></object>
+        </video>
+    </div>
+</div>
+
+<input type="hidden" id="progress_width" value="0">
+<div class='progress' id="progress_div">
+    <div class='bar' id='bar1'></div>
+    <div class='percent' id='percent1'></div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/Progress.js"></script>
+}

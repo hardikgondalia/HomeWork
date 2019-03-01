@@ -1,0 +1,31 @@
+﻿@model WebApplication1.Models.CompanyEmployee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>Company</legend>
+    <table class="table">
+        <tr>
+            <th>@Html.LabelFor(m => m.company.name)</th>
+        </tr>
+        <tr>
+            <td>@Html.EditorFor(m => m.company.name)</td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset>
+    <legend>Employees</legend>
+
+    @{Html.RenderPartial("_employees", Model.employees);}
+
+</fieldset>
+<fieldset>
+    @{Html.RenderPartial("_employee", new WebApplication1.Models.Employee());}
+</fieldset>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</div>

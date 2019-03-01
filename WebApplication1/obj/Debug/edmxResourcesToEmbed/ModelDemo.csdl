@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemoDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Class_Mast">
+    <Key>
+      <PropertyRef Name="Class_ID" />
+    </Key>
+    <Property Name="Class_ID" Type="Int32" Nullable="false" />
+    <Property Name="Class_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="DemoDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Class_Mast" EntityType="Self.Class_Mast" />
+    <FunctionImport Name="GetStudentByID" ReturnType="Collection(DemoDatabaseModel.GetStudentByID_Result)">
+      <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Student_Mast" EntityType="DemoDatabaseModel.Student_Mast" />
+  </EntityContainer>
+  <ComplexType Name="GetStudentByID_Result">
+    <Property Type="Int32" Name="StudID" Nullable="false" />
+    <Property Type="String" Name="First_Name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Roll_No" Nullable="true" />
+    <Property Type="Int32" Name="FK_ClassID" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Student_Mast">
+    <Key>
+      <PropertyRef Name="StudID" />
+    </Key>
+    <Property Name="StudID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Roll_No" Type="Int32" />
+    <Property Name="FK_ClassID" Type="Int32" />
+  </EntityType>
+</Schema>

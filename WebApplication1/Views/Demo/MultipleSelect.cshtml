@@ -1,0 +1,30 @@
+﻿@model WebApplication1.Models.Multiselect
+@{
+    ViewBag.Title = "MultipleSelect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://select2.github.io/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
+<link href="http://www.jqueryscript.net/demo/Minimal-Duration-Picker-Plugin-For-jQuery-Bootstrap/src/jquery-duration-picker.css" type="text/css" rel="stylesheet">
+<h2>MultipleSelect</h2>
+@using (Html.BeginForm("MultipleSelect", "Demo", FormMethod.Post, new { }))
+{
+    @Html.DropDownListFor(i => i.MovieList, new SelectList(Model.ProjectList, "Value", "Text"), new { @class = "js-example-basic-single", style = "width:100%", multiple = "multiple" })
+
+    <br />
+    @Html.TextBoxFor(i => i.Duration, new { id="duration"})
+    <input type="submit" value="Submit" />
+}
+@section scripts{
+    <script src="https://select2.github.io/dist/js/select2.full.js"></script>
+    <script src="http://www.jqueryscript.net/demo/Minimal-Duration-Picker-Plugin-For-jQuery-Bootstrap/src/jquery-duration-picker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".js-example-basic-single").select2();
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#duration').durationPicker();
+        });
+    </script>
+}

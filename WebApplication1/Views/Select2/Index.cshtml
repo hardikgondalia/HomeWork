@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" type="text/css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="col-lg-12">
+        <select class="js-example-basic-multiple form-control" multiple="multiple">
+            <option value="AL">Alabama</option>
+            <option value="WY">Wyoming</option>
+        </select>
+    </div>
+    <div class="col-lg-12">
+        <div class="radio">
+            <label><input type="radio" name="optradio" value="Blue">Blue</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="optradio" value="Green">Green</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="optradio" value="Red">Red</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="optradio" value="#e4e4e4" checked>Default</label>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Select2.js"></script>
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2();
+        $(document.body).on("click",".select2-selection__rendered > li", function () {
+            var color = $("input[name=optradio]:checked").val();
+            $(this).css("background-color", color);
+        });
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@model WebApplication1.Models.Register
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("SavePerson", "Register", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    Html.EnableClientValidation();
+    <div id="studentList">
+        <div id="editorRowsStudents">
+            @foreach (var item in Model.students)
+            {
+                @Html.Partial("_StudentPartial", item)
+            }
+        </div>
+        @Html.ActionLink("Add", "StudentManager", null, new { id = "addItemStudents", @class = "button" })
+        <button type="submit" value="Submit">Submit</button>
+
+    </div>
+
+    <div id="teacherList">
+        <div id="editorRowsTeachers">
+            @foreach (var item in Model.teachers)
+            {
+                @Html.Partial("_TeacherPartial", item)
+            }
+        </div>
+        @Html.ActionLink("Add", "TeacherManager", null, new { id = "addItemTeachers", @class = "button" })
+
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+
+
+            $('#addItemStudents').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("StudentManager")',
+                    cache: false,
+                    success: function (html) {
+                        $("#editorRowsStudents").append(html);
+                        $('form').data('validator', null);
+                        $.validator.unobtrusive.parse($('form'));
+                    }
+                });
+                return false;
+            });
+            $('#editorRowsStudents').on('click', '.deleteRow', function () {
+                $(this).closest('.editorRow').remove();
+            });
+            $('#addItemTeachers').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("TeacherManager")',
+                    cache: false,
+                    success: function (html) { $("#editorRowsTeachers").append(html); }
+                });
+                return false;
+            });
+            $('#editorRowsTeachers').on('click', '.deleteRow', function () {
+                $(this).closest('.editorRow').remove();
+            });
+        });
+    </script>
+}

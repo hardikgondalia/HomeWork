@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.CustomValidationCheck
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "CustomValidation", FormMethod.Post, new { }))
+{
+    @Html.TextBoxFor(i => i.Email)
+    @Html.ValidationMessageFor(i => i.Email)
+    <input type="submit" value="Submit" />
+}

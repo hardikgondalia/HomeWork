@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebApplication1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="jobtitle" Type="varchar" MaxLength="50" />
+    <Property Name="number" Type="varchar" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Mobiles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Model" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Cost" Type="nvarchar" MaxLength="50" />
+    <Property Name="id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Configuration">
+    <Key>
+      <PropertyRef Name="ConfigureID" />
+    </Key>
+    <Property Name="ConfigureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Option_Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_Value" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_GeneralData">
+    <Key>
+      <PropertyRef Name="KeyID" />
+    </Key>
+    <Property Name="KeyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KeyTitle" Type="int" />
+    <Property Name="KeyValue" Type="nvarchar" MaxLength="50" />
+    <Property Name="Appointment_ID" Type="int" />
+  </EntityType>
+  <EntityContainer Name="WebApplication1ModelStoreContainer">
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mobiles" EntityType="Self.Mobiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Configuration" EntityType="Self.Tbl_Configuration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_GeneralData" EntityType="Self.Tbl_GeneralData" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

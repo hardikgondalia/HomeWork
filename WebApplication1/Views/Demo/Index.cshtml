@@ -1,0 +1,91 @@
+﻿@model WebApplication1.Models.DropDownModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<form>
+    <div class="col-lg-6">
+        @Html.DropDownList("Category", new SelectList(Model.CategoryList, "Value", "Text"), "Select Category", new { @class = "form-control", id = "ddlCategory" })
+    </div>
+    <div class="col-lg-6">
+        @Html.DropDownList("Project", new SelectList(Model.ProjectList, "Value", "Text"), "Select Project", new { @class = "form-control", id = "ddlProject" })
+    </div>
+</form>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var $dropdown2 = $('#ddlProject');
+        $("#ddlProject > option").each(function () {
+            $dropdown2.find('option[value="' + this.value + '"]').prop("disabled", false);
+        });
+    });
+    $("#ddlCategory").change(function () {
+
+        var $dropdown2 = $('#ddlProject');
+        var selectedValue = $("#ddlCategory option:selected").val();
+        var selectedItem = [];
+
+        if (selectedValue == 1) {
+            selectedItem = [1, 2, 3];
+        }
+        else if (selectedValue == '2') {
+            selectedItem = [3, 4];
+        }
+        else if (selectedValue == '3') {
+            selectedItem = [4, 5, 6];
+        }
+        else {
+            selectedItem = [1,2,3,4,5,6];
+        }
+
+        $("#ddlProject > option").each(function () {
+            $dropdown2.find('option[value="' + this.value + '"]').prop("disabled", true);
+        });
+        $dropdown2.find('option[value=""]').prop("disabled", false);
+        $.each(selectedItem, function (index, value) {
+            $dropdown2.find('option[value="' + value + '"]').prop("disabled", false);
+        });
+    });
+
+
+    $("#ddlProject").change(function () {
+
+        var $dropdown2 = $('#ddlCategory');
+        var selectedValue = $("#ddlProject option:selected").val();
+        var selectedItem = [];
+
+        if (selectedValue == 1) {
+            selectedItem = [1];
+        }
+        else if (selectedValue == '2') {
+            selectedItem = [1];
+        }
+        else if (selectedValue == '3') {
+            selectedItem = [1,2];
+        }
+        else if (selectedValue == '4') {
+            selectedItem = [2,3];
+        }
+        else if (selectedValue == '5') {
+            selectedItem = [3];
+        }
+        else if (selectedValue == '6') {
+            selectedItem = [3];
+        }
+        else {
+            selectedItem = [1,2,3];
+        }
+
+        $("#ddlCategory > option").each(function () {
+            $dropdown2.find('option[value="' + this.value + '"]').prop("disabled", true);
+        });
+        $dropdown2.find('option[value=""]').prop("disabled", false);
+        $.each(selectedItem, function (index, value) {
+            $dropdown2.find('option[value="' + value + '"]').prop("disabled", false);
+        });
+    });
+</script>
+

@@ -1,0 +1,19 @@
+﻿@model List<WebApplication1.Models.EmployeeModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<p>@ViewBag.timer</p>
+
+@{
+    foreach (WebApplication1.Models.EmployeeModel i in Model)
+    {
+        <p>
+            @i.employee_name
+        </p>
+    }
+    @ViewBag.timer
+}
+

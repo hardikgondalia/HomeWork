@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.css" />
+}
+<h2>Index</h2>
+<div id="container">
+    <div id="demo">
+        <h2>Index</h2>
+        <table id="myDataTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Event Name</th>
+                    <th>Event Type</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myDataTable').dataTable({
+                "bServerSide": true,
+                "sAjaxSource": "@Url.Action("AjaxHandler","DataTable")",
+                "bProcessing": true,
+                "aoColumns": [
+                    { "data": "EventID", "sWidth": "10%", "aTargets" : [0] },
+                    { "data": "EventName", "sWidth": "40%", "aTargets": [1] },
+                    { "data": "EventTypeTitle", "sWidth": "30%", "aTargets": [2] },
+                    { "sWidth" : "20%"}
+                ]
+            });
+        });
+    </script>
+}
