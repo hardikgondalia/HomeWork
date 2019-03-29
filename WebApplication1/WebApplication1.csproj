@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\NugetController.cs" />
+    <Compile Include="Controllers\PartialViewController.cs" />
     <Compile Include="Controllers\PayerController.cs" />
     <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\PopupController.cs" />
@@ -459,6 +460,8 @@
     <Content Include="Views\Asynch\Index.cshtml" />
     <Content Include="Views\Asynch\GetList.cshtml" />
     <Content Include="Views\Asynch\GetListAsync.cshtml" />
+    <Content Include="Views\Shared\_PartialEmployeeList.cshtml" />
+    <Content Include="Views\PartialView\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DemoEntity\" />
