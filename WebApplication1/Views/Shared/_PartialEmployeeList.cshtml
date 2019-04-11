@@ -1,0 +1,9 @@
+﻿@model List<WebApplication1.Models.Person>
+
+@{
+    foreach (var v in Model)
+    {
+        <h1>@v.firstName @v.lastName</h1>
+
+    }
+}

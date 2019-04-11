@@ -53,9 +53,9 @@ namespace WebApplication1.Controllers
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SMTPuser"],
                     ConfigurationManager.AppSettings["SMTPpassword"]);
-                    client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
-                    client.Host = ConfigurationManager.AppSettings["LocalHost"];
-                    client.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSSL"]);
+                    client.Port = 587;
+                    client.Host = "smtp.gmail.com";
+                    client.EnableSsl = true;
                     objMail.To.Add(to);
                     objMail.Subject = subject;
                     objMail.Body = body;
